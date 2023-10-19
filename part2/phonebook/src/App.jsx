@@ -14,7 +14,6 @@ function App() {
     () => {
       serverServices.getAll().then(
         (response) => {
-          console.log(response)
           setPersons(response)
         }
       )
