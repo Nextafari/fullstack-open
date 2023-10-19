@@ -3,12 +3,15 @@ import serverServices from './services/apiCalls'
 import Form from './components/Form'
 import FormInput from './components/FormInput'
 import Persons from './components/Persons'
+import Notification from './components/Notification'
 
 function App() {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
   const [filtered, setFiltered] = useState([])
+  const [errorMsg, setErrorMsg] = useState("")
+  const [successMsg, setSuccessMsg] = useState("")
   
   useEffect(
     () => {
@@ -44,6 +47,11 @@ function App() {
         serverServices.update(doesExist.id, nameObject).then(
           // replace modified person object in state with response.data(modified data)
           response => setPersons(persons.map(person => person.id === response.id ? response : person))
+        ).catch(
+          err => {
+            setErrorMsg(`Information about ${doesExist.name} has already been removed from the server.`)
+            setTimeout(() => setErrorMsg(null), 5000)
+          }
         )
       }
       setNewName("")
@@ -54,8 +62,10 @@ function App() {
     serverServices.create(nameObject).then(
       response => {
         setPersons(persons.concat(response))
+        setSuccessMsg(`Added ${response.name}`)
         setNewName("")
         setPhoneNumber("")
+        setTimeout(() => setSuccessMsg(null), 5000)
       }
     ).catch(
       err => console.log(err)
@@ -89,16 +99,20 @@ function App() {
       serverServices.deleteUser(id).then(
         setPersons(persons.filter(person => person.id !== id))
       ).catch(
-        err => console.log(err)
+        err => {
+          console.log("catch", err);
+        }
       )
     }
-}
+  }
 
   return (
     <>
       <div>
         <h2>Phonebook</h2>
         <FormInput formTitle='Filter shown with' handlerFunc={filterHandler}/>
+
+        <Notification errorMsg={errorMsg} successMsg={successMsg}/>
 
         <h2>Add new contacts:</h2>
         <Form 
