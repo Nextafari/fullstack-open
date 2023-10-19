@@ -28,20 +28,28 @@ function App() {
     if ((!newName && !phoneNumber) || (!newName || !phoneNumber)) {
       return alert("Must enter contact details!!!")
     }
+    
+    const nameObject = {
+      name: newName,
+      number: phoneNumber,
+    }
 
-    let doesExist = persons.find(
+    const doesExist = persons.find(
       (person) => person.name.toLowerCase() === newName.toLowerCase()
     )
 
     if (doesExist) {
+      let msg = `${doesExist.name} is already added to phonebook, replace the old number with a new one?`
+      
+      if (window.confirm(msg)) {
+        serverServices.update(doesExist.id, nameObject).then(
+          // replace modified person object in state with response.data(modified data)
+          response => setPersons(persons.map(person => person.id === response.id ? response : person))
+        )
+      }
       setNewName("")
       setPhoneNumber("")
-      return alert(`${newName} already exists in phonebook`)
-    }
-
-    const nameObject = {
-      name: newName,
-      number: phoneNumber,
+      return
     }
 
     serverServices.create(nameObject).then(
