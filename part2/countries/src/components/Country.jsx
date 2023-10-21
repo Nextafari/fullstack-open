@@ -33,9 +33,9 @@ const Country = ({country, weather}) => {
 
             <img src={flag} alt="country flag"></img>
 
-            {Object.keys(weather).length > 1 ? <h2>Weather in {name}</h2> : null}
+            {Object.keys(weather).length >= 1 ? <h2>Weather in {name}</h2> : null}
             {
-                Object.keys(weather).length > 1 ? <Weather weather={weather}/>: null
+                Object.keys(weather).length >= 1 ? <Weather weather={weather}/>: null
             }
         </div>
     )
