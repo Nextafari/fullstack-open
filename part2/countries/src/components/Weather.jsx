@@ -2,7 +2,6 @@ const Weather = ({weather}) => {
 
     return (
         <div>
-
             <p>Temperature: {weather.main.temp} °F</p>
 
             {weather.weather.map(
