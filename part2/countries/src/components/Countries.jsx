@@ -3,7 +3,7 @@ import Popup from 'reactjs-popup'
 import 'reactjs-popup/dist/index.css'
 
 
-const Countries = ({filteredCountries, errorMsg}) => {
+const Countries = ({filteredCountries, errorMsg, weather}) => {
     const [...countries] = filteredCountries
 
     const contentStyle = {
@@ -24,13 +24,13 @@ const Countries = ({filteredCountries, errorMsg}) => {
                                 <h2 key={country.fifa}>{country.name.common}</h2>
                                 <p key={country.capital}>Capital: {country.capital}</p>
 
-                                <Popup 
+                                <Popup
                                     trigger={
                                         <button>show</button>
                                     }
                                     {...{contentStyle}}
                                 >
-                                    <Country country={country}/>
+                                    <Country country={country} weather={weather}/>
                                 </Popup>
                             </li>
                         )

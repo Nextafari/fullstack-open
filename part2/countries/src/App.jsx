@@ -64,7 +64,6 @@ function App() {
         filterParams ? filterParams:null
       )
     )
-    console.log("filteredCountries", filteredCountries)
 
     if (filteredCountries.length <= 10) {
       setFiltered(filteredCountries)
@@ -90,7 +89,7 @@ function App() {
       {
         filtered.length > 1 
         ? 
-        <Countries filteredCountries={filtered} errorMsg={errorMsg}/> 
+        <Countries filteredCountries={filtered} errorMsg={errorMsg} weather={weather}/> 
         :
         <Country country={filtered[0]} weather={weather}/>
       }

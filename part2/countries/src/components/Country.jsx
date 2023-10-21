@@ -1,6 +1,9 @@
+import Weather from "./Weather"
+
+
 const Country = ({country, weather}) => {
     // Handles initial rendering
-    if (country === undefined || Object.keys(weather).length < 1) {
+    if (country === undefined) {
         return null
     }
 
@@ -30,26 +33,10 @@ const Country = ({country, weather}) => {
 
             <img src={flag} alt="country flag"></img>
 
-            <div>
-                <h2>Weather in {name}</h2>
-
-                <p>Temperature: {weather.main.temp} °F</p>
-
-                {weather.weather.map(
-                    (data) => {
-                        return (
-                            <>
-                                <p key={data.main}>Weather: {data.main} </p>
-                                <p key={data.description}>Weather Description: {data.description} </p>
-                            </>
-                        )
-                    }
-                )}
-
-                <img src={weather.icon_url} alt="weather icon" />
-
-                <p>Wind: {weather.wind.speed} m/s</p>
-            </div>
+            {Object.keys(weather).length > 1 ? <h2>Weather in {name}</h2> : null}
+            {
+                Object.keys(weather).length > 1 ? <Weather weather={weather}/>: null
+            }
         </div>
     )
 }
