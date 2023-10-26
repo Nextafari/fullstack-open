@@ -112,7 +112,7 @@ function App() {
         <h2>Phonebook</h2>
         <FormInput formTitle='Filter shown with' handlerFunc={filterHandler}/>
 
-        <Notification errorMsg={errorMsg} successMsg={successMsg}/>
+        {errorMsg === "" ? null: <Notification errorMsg={errorMsg} successMsg={successMsg}/>}
 
         <h2>Add new contacts:</h2>
         <Form 
