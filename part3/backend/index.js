@@ -1,17 +1,16 @@
 // Allows usage of process.env
-require('dotenv').config();
+require('dotenv').config()
 
 // const Person = mongoose.model('Person', personSchema)
 const Person = require('./models/person')
 
 
-const express = require("express")
+const express = require('express')
 const app = express()
 
 const morgan = require('morgan')
-morgan.token('req-body', (req, res) => {return JSON.stringify(req.body)})
-const middleware = require("./middleware")
-const unknownEndpoint = require("./middleware")
+morgan.token('req-body', (req) => {return JSON.stringify(req.body)})
+const middleware = require('./middleware')
 
 app.use(express.static('dist'))
 app.use(express.json())
@@ -37,7 +36,7 @@ app.use(
 // }
 
 
-app.post("/api/persons", (request, response, next) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
   const name = body.name
   const number = body.number
