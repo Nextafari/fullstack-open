@@ -68,7 +68,10 @@ function App() {
         setTimeout(() => setSuccessMsg(null), 5000)
       }
     ).catch(
-      err => console.log(err)
+      err => {
+        setErrorMsg(err.response.data.error)
+        setTimeout(() => setErrorMsg(null), 5000)
+      }
     )
   }
 

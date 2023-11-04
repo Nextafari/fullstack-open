@@ -1,12 +1,8 @@
 import axios from 'axios'
 
 
-<<<<<<< Updated upstream
-const baseUrl = "http://localhost:3001/api/persons"
-=======
 // const baseUrl = "http://localhost:3001/api/persons"
 const baseUrl = "/api/persons"
->>>>>>> Stashed changes
 
 
 function create(data) {
