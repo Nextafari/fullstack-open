@@ -29,7 +29,7 @@ const mostBlogs = (blogs) => {
   const groupedBlogs = groupBy(blogs, ({author}) => author)
   let newBlogs = {}
 
-  for (blog in groupedBlogs) {
+  for (const blog in groupedBlogs) {
     let noOfBlogs = groupedBlogs[blog].length
     newBlogs[blog] = noOfBlogs
   }
@@ -47,27 +47,36 @@ const mostBlogs = (blogs) => {
 
 
 const mostLikes = (blogs) => {
-  // collate authors and their blog posts.
-  const groupedBlogs = groupBy(blogs, ({author}) => author)
-  let newBlogs = {}
-  
-  for (author in groupedBlogs) {
-    // aggregate all likes gotten from an author's posts
-    let totalAuthorLikes = groupedBlogs[author].reduce((sum, blog) => {
-      return sum + blog.likes
-    }, 0)
-    newBlogs[author] = totalAuthorLikes
+  const authorLikes = {};
+
+   // collate authors and their blog posts.
+  for (const blog of blogs) {
+    // aggregate all likes gotten from an author's posts authorLikes EG:
+    // { 'Mark Dwanye': 3, 'Forester Brail': 3, 'Chinko Ekun': 12, Habibi: 6 }
+    if (authorLikes[blog.author]) {
+      authorLikes[blog.author] += blog.likes;
+    } else {
+      authorLikes[blog.author] = blog.likes;
+    }
   }
 
-  let arrayOfLikes = Object.values(newBlogs)
-  let maxNoOfLikes = Math.floor(Math.max(...arrayOfLikes))
-  let authorWithMostLikes = Object.keys(newBlogs).find(key => newBlogs[key] === maxNoOfLikes)
+  let maxLikes = 0;
+  let authorWithMostLikes = '';
+
+  // Find author with max likes.
+  for (const author in authorLikes) {
+    if (authorLikes[author] > maxLikes) {
+      maxLikes = authorLikes[author];
+      authorWithMostLikes = author;
+    }
+  }
 
   return {
     author: authorWithMostLikes,
-    likes: maxNoOfLikes
-  }
-}
+    likes: maxLikes
+  };
+};
+
 
 
 module.exports = {
