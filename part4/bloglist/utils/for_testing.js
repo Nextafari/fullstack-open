@@ -49,7 +49,7 @@ const mostBlogs = (blogs) => {
 const mostLikes = (blogs) => {
   const authorLikes = {};
 
-   // collate authors and their blog posts.
+  // collate authors and their blog posts.
   for (const blog of blogs) {
     // aggregate all likes gotten from an author's posts authorLikes EG:
     // { 'Mark Dwanye': 3, 'Forester Brail': 3, 'Chinko Ekun': 12, Habibi: 6 }
