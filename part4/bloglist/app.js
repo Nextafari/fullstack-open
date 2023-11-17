@@ -5,18 +5,18 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const config = require('./utils/config')
 const blogsRouter = require('./controllers/blogs')
-
+const usersRouter = require('./controllers/users')
 
 
 const mongoUrl = config.DB_URL
 mongoose.connect(mongoUrl).then(
-    (result) => {
-      console.log("connected to  MongoDB")
-    }
+  (result) => {
+    console.log("connected to  MongoDB")
+  }
 ).catch(
-    (error) => {
-      console.log('error connecting to MongoDB:', error.messaage)
-    }
+  (error) => {
+    console.log('error connecting to MongoDB:', error.messaage)
+  }
 )
 
 morgan.token('req-body', (req) => {return JSON.stringify(req.body)})
@@ -30,5 +30,6 @@ app.use(
   )
 )
 app.use('/api/blogs', blogsRouter)
+app.use('/api/users', usersRouter)
 
 module.exports = app
